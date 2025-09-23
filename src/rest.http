@@ -1,12 +1,14 @@
 @apiURL = http://localhost:4000/api/v1
 
-####
+###
 POST {{apiURL}}/auth
 Content-Type: application/json
 
 {
+  "username":"Prasika",
   "email": "prasika@gmail.com", 
-  "password": "12345"
+  "password": "1234"
+
 }
 
 ###
@@ -15,7 +17,7 @@ Content-Type: application/json
 
 {
   "email": "prasika@gmail.com", 
-  "password": "12345"
+  "password": "1234"
 
 }
 

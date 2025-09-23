@@ -4,6 +4,8 @@ import mongoConnect from "./config/mongoConfig.js";
 import config from "./config/config.js";
 import authRouter from "./routes/authRouter.js";
 
+import userRouter from "./routes/userRouter.js";
+
 import categoryRouter from "./routes/categoryRouter.js";
 
 import productRouter from "./routes/productRouter.js";
@@ -18,12 +20,15 @@ app.get("/", (req, res) => {
 });
 
 // auth router
+
 app.use("/api/v1/auth", authRouter);
 // category router
 app.use("/api/v1/category", categoryRouter);
 
-// app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/products", productRouter);
+
+//user routes
+app.use("/api/v1/user", userRouter);
 
 mongoConnect()
   .then(() => {
