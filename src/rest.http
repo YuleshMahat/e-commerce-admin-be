@@ -5,21 +5,16 @@ POST {{apiURL}}/auth
 Content-Type: application/json
 
 {
-  "email": "absc@gmail.com", 
+  "email": "prasika@gmail.com", 
   "password": "12345"
 }
 
-<<<<<<< HEAD
-
-#####
-=======
 ###
->>>>>>> 9a42c9e9e5b45bacf9507a8529a3e8a2515fc1ad
 POST {{apiURL}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "absc@gmail.com", 
+  "email": "prasika@gmail.com", 
   "password": "12345"
 
 }
