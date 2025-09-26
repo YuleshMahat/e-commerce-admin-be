@@ -5,8 +5,8 @@ POST {{apiURL}}/auth
 Content-Type: application/json
 
 {
-  "username":"manish",
-  "email": "tester@gmail.com", 
+  "username":"subin",
+  "email": "subin@gmail.com", 
   "password": "1234"
 
 }
