@@ -7,7 +7,6 @@ import {
 
 export const getAllProducts = async (req, res) => {
   try {
-    console.log(111, "hit");
     const products = await getAllProductsQuery();
     return res
       .status(200)
@@ -19,9 +18,10 @@ export const getAllProducts = async (req, res) => {
 
 export const addNewProduct = async (req, res) => {
   const payload = req.body;
+  const imageFiles = req.files;
+  const images = imageFiles.map((file) => "public/" + file.filename);
   try {
-    const product = await addProduct(payload);
-    console.log(product);
+    const product = await addProduct({ ...payload, images });
 
     if (!product) {
       return res
