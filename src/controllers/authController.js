@@ -25,6 +25,7 @@ export const createNewUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   let { email, password } = req.body;
+  console.log(email, password);
   try {
     const user = await findByFilter({ email });
     if (user) {
@@ -47,6 +48,10 @@ export const loginUser = async (req, res) => {
           .status(500)
           .json({ status: "error", message: "Invalid credentials" });
       }
+    } else {
+      return res
+        .status(500)
+        .json({ status: "error", message: "User not found" });
     }
   } catch (error) {
     return res
