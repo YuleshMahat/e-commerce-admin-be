@@ -1,6 +1,6 @@
 import { findByFilter, newAdmin } from "../models/users/userModel.js";
 import { decodeFunction, encodeFunction } from "../utils/encodeHelper.js";
-import { createAccessToken } from "../utils/jwt.js";
+import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
 
 export const createNewUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -30,18 +30,17 @@ export const loginUser = async (req, res) => {
     const user = await findByFilter({ email });
     if (user) {
       const result = decodeFunction(password, user.password);
-
       let payload = {
         email: user.email,
       };
-
       let accessToken = createAccessToken(payload);
-      console.log(111, accessToken);
+      let refreshToken = createRefreshToken(payload);
       if (result) {
         return res.status(200).json({
           status: "success",
           message: "Login Successful",
           accessToken,
+          refreshToken,
         });
       } else {
         return res
@@ -49,9 +48,10 @@ export const loginUser = async (req, res) => {
           .json({ status: "error", message: "Invalid credentials" });
       }
     } else {
-      return res
-        .status(500)
-        .json({ status: "error", message: "User not found" });
+      return res.json({
+        status: "error",
+        message: "User Not found",
+      });
     }
   } catch (error) {
     return res

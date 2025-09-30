@@ -3,7 +3,7 @@ import Joi from "joi";
 const joiValidator = (schema, req, res, next) => {
   const { error } = schema.validate(req.body);
   error
-    ? res.json({
+    ? res.status(404).json({
         status: "error",
         message: error.message,
       })
@@ -27,6 +27,17 @@ export const createUserValidation = (req, res, next) => {
   });
 
   joiValidator(createUserSchema, req, res, next);
+};
+
+export const createUserByAdminValidation = (req, res, next) => {
+  let createUserByAdminSchema = Joi.object({
+    username: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+    role: Joi.string().valid("admin", "superadmin").required(),
+  });
+
+  joiValidator(createUserByAdminSchema, req, res, next);
 };
 
 export const addProductValidation = (req, res, next) => {

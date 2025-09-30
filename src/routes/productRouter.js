@@ -10,11 +10,33 @@ import {
   deleteProductValidation,
   updateProductValidation,
 } from "../middleware/joiMiddleware.js";
+import { upload } from "../middleware/multerconfig.js";
+import { authMiddleware, isAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.get("/", getAllProducts);
-router.post("/", addProductValidation, addNewProduct);
-router.patch("/", updateProductValidation, updateProduct);
-router.delete("/", deleteProductValidation, deleteProduct);
+router.post(
+  "/",
+  authMiddleware,
+  isAdmin,
+  upload.array("images", 5),
+  addProductValidation,
+
+  addNewProduct
+);
+router.patch(
+  "/",
+  authMiddleware,
+  isAdmin,
+  updateProductValidation,
+  updateProduct
+);
+router.delete(
+  "/",
+  authMiddleware,
+  isAdmin,
+  deleteProductValidation,
+  deleteProduct
+);
 export default router;
