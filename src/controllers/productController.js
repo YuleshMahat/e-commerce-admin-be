@@ -38,7 +38,7 @@ export const addNewProduct = async (req, res) => {
       console.log(111, results);
       return results;
     } catch (error) {
-      console.log("Erroruploading images", error);
+      console.log("Error uploading images", error);
       throw error;
     }
   };
