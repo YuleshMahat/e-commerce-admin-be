@@ -4,6 +4,7 @@ import {
   getAllProductsQuery,
   updateProductQuery,
 } from "../models/products/productModel.js";
+import cloudinary from "../config/cloudinaryConfig.js";
 
 export const getAllProducts = async (req, res) => {
   try {
@@ -19,8 +20,33 @@ export const getAllProducts = async (req, res) => {
 export const addNewProduct = async (req, res) => {
   const payload = req.body;
   const imageFiles = req.files;
-  const images = imageFiles.map((file) => "public/" + file.filename);
+  const uploadImages = async (files) => {
+    try {
+      console.log("starting image uploads");
+      const uploadPromises = files.map((file) => {
+        console.log("uploading", file.path);
+        return cloudinary.uploader.upload(file.path, {
+          folder: "products",
+          use_filename: true,
+          unique_filename: true,
+          overwrite: true,
+        });
+      });
+
+      const results = await Promise.all(uploadPromises);
+      return results;
+    } catch (error) {
+      console.log("Error uploading images", error);
+      throw error;
+    }
+  };
+
   try {
+    const cloudinaryResult = await uploadImages(imageFiles);
+    console.log(cloudinaryResult);
+    const images = cloudinaryResult.map((res) => res.secure_url);
+    console.log(images);
+
     const product = await addProduct({ ...payload, images });
 
     if (!product) {
