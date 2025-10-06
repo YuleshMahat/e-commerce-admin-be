@@ -24,8 +24,9 @@ export const createNewUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+  console.log(1123, "i reached here");
   let { email, password } = req.body;
-  console.log(email, password);
+  // console.log(email, password);
   try {
     const user = await findByFilter({ email });
     if (user) {
