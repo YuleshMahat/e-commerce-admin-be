@@ -10,6 +10,7 @@ import {
   updateUserDetail,
 } from "../controllers/userController.js";
 import { createUserByAdminValidation } from "../middleware/joiMiddleware.js";
+import { registerUserController } from "../controllers/authController.js";
 
 const router = express.Router();
 
