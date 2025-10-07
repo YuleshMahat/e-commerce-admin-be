@@ -36,7 +36,7 @@ export const addNewProduct = async (req, res) => {
       const results = await Promise.all(uploadPromises);
       return results;
     } catch (error) {
-      console.log("Erroruploading images", error);
+      console.log("Error uploading images", error);
       throw error;
     }
   };
