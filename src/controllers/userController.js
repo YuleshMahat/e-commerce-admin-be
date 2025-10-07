@@ -7,11 +7,25 @@ import {
 import { encodeFunction } from "../utils/encodeHelper.js";
 
 export const getUserDetail = (req, res) => {
-  res.send({
-    status: "success",
-    message: "User Details Found",
-    user: req.user,
-  });
+  try {
+    const user = req.user;
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found"
+      });
+    }
+    return res.json({
+      status: "success",
+      message: "User details retrieved successfully",
+      user,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: "error",
+      message: "Failed to retrieve user details.",
+    });
+  }
 };
 
 export const getAllUsersController = async (req, res) => {
