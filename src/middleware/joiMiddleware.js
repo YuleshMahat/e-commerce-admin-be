@@ -41,15 +41,22 @@ export const createUserByAdminValidation = (req, res, next) => {
 };
 
 export const addProductValidation = (req, res, next) => {
-  let createProductSchema = Joi.object({
+  //convert category string to category array if only 1 item was sent
+  let { category } = req.body;
+  if (!Array.isArray(category)) {
+    category = [category];
+  }
+
+  req.body.category = category;
+  let addProductSchema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
     price: Joi.number().required(),
     stock: Joi.number().required(),
-    category: Joi.string(),
+    category: Joi.array().items(Joi.string().required()).min(1).required(),
   });
 
-  joiValidator(createProductSchema, req, res, next);
+  joiValidator(addProductSchema, req, res, next);
 };
 
 export const updateProductValidation = (req, res, next) => {
@@ -65,9 +72,42 @@ export const updateProductValidation = (req, res, next) => {
 };
 
 export const deleteProductValidation = (req, res, next) => {
-  let updateProductSchema = Joi.object({
+  let deleteProductSchema = Joi.object({
     id: Joi.string().required(),
   });
 
-  joiValidator(updateProductSchema, req, res, next);
+  joiValidator(deleteProductSchema, req, res, next);
+};
+
+export const deleteCategoryValidation = (req, res, next) => {
+  let deleteCategorySchema = Joi.object({
+    id: Joi.string().required(),
+  });
+
+  joiValidator(deleteCategorySchema, req, res, next);
+};
+
+export const changeProductStatusValidation = (req, res, next) => {
+  let changeProductStatusSchema = Joi.object({
+    id: Joi.string().required(),
+  });
+
+  joiValidator(changeProductStatusSchema, req, res, next);
+};
+
+export const createCategoryValidation = (req, res, next) => {
+  let createCategorySchema = Joi.object({
+    name: Joi.string().required(),
+    parent: Joi.alternatives().try(Joi.string(), Joi.valid(null)),
+  });
+
+  joiValidator(createCategorySchema, req, res, next);
+};
+
+export const updateCategoryValidation = (req, res, next) => {
+  let updateCategorySchema = Joi.object({
+    name: Joi.string().required(),
+  });
+
+  joiValidator(updateCategorySchema, req, res, next);
 };

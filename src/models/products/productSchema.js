@@ -5,6 +5,12 @@ const productSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
     },
     description: {
       type: String,
@@ -20,10 +26,17 @@ const productSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
-    category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "category",
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "inactive",
     },
+    category: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category",
+      },
+    ],
     images: [
       {
         type: String,

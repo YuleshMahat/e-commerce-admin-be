@@ -19,16 +19,15 @@ Content-Type: application/json
 {
   "email": "prasika@gmail.com", 
   "password": "1234"
-
 }
 
 ###
 POST {{apiURL}}/category
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NTkxMjcyMzQsImV4cCI6MTc1OTIxMzYzNH0.zr2gygPQ_5iIFSPq4Hy9vvLvy0UM7_1EBtkl-vxKxyA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NTk3OTI2NTQsImV4cCI6MTc2MDM5NzQ1NH0.qHo-gUt8AxSUrRlz2T1i3woz4ckah-kMLkWyvwMzVYY
 
 {
-  "name":"Laptop"
+  "name":"Speakers"
 }
 
 ###
