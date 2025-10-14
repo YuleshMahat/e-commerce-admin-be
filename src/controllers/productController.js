@@ -11,10 +11,17 @@ import { slugifyItem } from "../utils/slugify.js";
 
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await getAllProductsQuery();
-    return res
-      .status(200)
-      .json({ status: "success", message: "Products fetched", products });
+    const { status } = req.query;
+    const filter = {};
+    if (status) {
+      filter.status = status;
+    }
+    const products = await getAllProductsQuery(filter);
+    return res.status(200).json({
+      status: "success",
+      message: "Products fetched",
+      products
+    });
   } catch (error) {
     res.status(500).json({ status: "error", message: "Internal server error" });
   }

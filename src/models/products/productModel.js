@@ -4,8 +4,8 @@ export const addProduct = (productObj) => {
   return Product.create(productObj);
 };
 
-export const getAllProductsQuery = () => {
-  return Product.find();
+export const getAllProductsQuery = (filter = {}) => {
+  return Product.find(filter);
 };
 
 export const getProductsById = (id) => {
