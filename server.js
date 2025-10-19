@@ -1,14 +1,18 @@
 import express from "express";
 import cors from "cors";
-import mongoConnect from "./config/mongoConfig.js";
-import config from "./config/config.js";
-import authRouter from "./routes/authRouter.js";
+import { mongooseConnect } from "./src/config/mongoConfig.js";
+import { mongoConnect } from "./src/config/mongoConfig.js";
 
-import userRouter from "./routes/userRouter.js";
+import config from "./src/config/config.js";
+import authRouter from "./src/routes/authRouter.js";
 
-import categoryRouter from "./routes/categoryRouter.js";
+import userRouter from "./src/routes/userRouter.js";
 
-import productRouter from "./routes/productRouter.js";
+import categoryRouter from "./src/routes/categoryRouter.js";
+
+import productRouter from "./src/routes/productRouter.js";
+
+import orderRouter from "./src/routes/orderRouter.js";
 
 const app = express();
 app.use(cors());
@@ -32,7 +36,10 @@ app.use("/api/v1/products", productRouter);
 //user routes
 app.use("/api/v1/user", userRouter);
 
-mongoConnect()
+app.use("/api/v1/orders", orderRouter);
+
+mongooseConnect()
+  .then(() => mongoConnect())
   .then(() => {
     app.listen(config.port, (err) => {
       if (err) {

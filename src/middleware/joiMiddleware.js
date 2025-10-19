@@ -72,7 +72,10 @@ export const updateProductValidation = (req, res, next) => {
     price: Joi.number().required(),
     comparePrice: Joi.number(),
     stock: Joi.number(),
-    category: Joi.string(),
+    category: Joi.alternatives().try(
+      Joi.string(),
+      Joi.array().items(Joi.string())
+    ),
     imagesToDelete: Joi.array().items(Joi.string()),
   });
 

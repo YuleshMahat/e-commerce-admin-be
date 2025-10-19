@@ -26,7 +26,6 @@ export const getAllProducts = async (req, res) => {
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };
-
 export const addNewProduct = async (req, res) => {
   const { category, ...payload } = req.body;
   const slug = slugifyItem(payload.name);
@@ -36,18 +35,15 @@ export const addNewProduct = async (req, res) => {
   );
   const categoriesIdArray = categoriesId.map((idObj) => idObj._id);
   const imageFiles = req.files;
-
   try {
     const cloudinaryResult = await uploadImages(imageFiles);
     const images = cloudinaryResult.map((res) => res.secure_url);
-
     const product = await addProduct({
       ...payload,
       images,
       category: categoriesIdArray,
       slug,
     });
-
     if (!product) {
       return res
         .status(500)
@@ -60,11 +56,9 @@ export const addNewProduct = async (req, res) => {
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };
-
 export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-
     const { imagesToDelete, ...payload } = req.body;
     const slug = slugifyItem(payload.name);
     const imageFiles = req.files;
@@ -89,7 +83,6 @@ export const updateProduct = async (req, res) => {
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };
-
 export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.body;
@@ -101,7 +94,6 @@ export const deleteProduct = async (req, res) => {
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };
-
 export const changeProductStatus = async (req, res) => {
   try {
     const { id } = req.body;
