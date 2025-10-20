@@ -75,9 +75,8 @@ export const registerUserController = async (req, res) => {
       const duplicateField = Object.keys(error.keyValue)[0];
       return res.status(400).json({
         status: "error",
-        message: `${
-          duplicateField.charAt(0).toUpperCase() + duplicateField.slice(1)
-        } already exists`,
+        message: `${duplicateField.charAt(0).toUpperCase() + duplicateField.slice(1)
+          } already exists`,
       });
     }
     res.status(500).json({ status: "error", message: error.message });
