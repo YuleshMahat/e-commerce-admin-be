@@ -11,11 +11,13 @@ import {
   deleteCategoryValidation,
   updateCategoryValidation,
 } from "../middleware/joiMiddleware.js";
+import { upload } from "../middleware/multerconfig.js";
 
 const router = express.Router();
 
 router.post(
   "/",
+  upload.single("image"),
   createCategoryValidation,
   authMiddleware,
   isAdmin,
