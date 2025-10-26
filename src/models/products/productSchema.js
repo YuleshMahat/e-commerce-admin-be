@@ -35,12 +35,16 @@ const productSchema = new mongoose.Schema(
       enum: ["active", "inactive"],
       default: "inactive",
     },
-    category: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "category",
-      },
-    ],
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
+      required: "true",
+    },
+    subCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
+      required: "true",
+    },
     images: [
       {
         type: String,

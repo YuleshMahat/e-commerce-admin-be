@@ -9,16 +9,18 @@ const categorySchema = new mongoose.Schema(
     slug: {
       type: String,
       required: true,
-    },
-    slug: {
-      type: String,
-      required: true,
       unique: true,
     },
     parent: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "category",
     },
+    products: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product",
+      },
+    ],
   },
   {
     timestamps: true,
