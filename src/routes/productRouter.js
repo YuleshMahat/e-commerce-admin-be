@@ -22,13 +22,13 @@ router.post(
   "/",
   authMiddleware,
   isAdmin,
-  upload.array("images", 5),
+  upload.array("images", 4),
   addProductValidation,
   addNewProduct
 );
 router.patch(
   "/:id",
-  upload.array("images", 5),
+  upload.array("images", 4),
   authMiddleware,
   isAdmin,
   updateProductValidation,

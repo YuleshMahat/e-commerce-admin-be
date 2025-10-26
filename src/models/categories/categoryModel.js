@@ -5,8 +5,13 @@ export const getAllCategories = () => {
   return Category.find();
 };
 
-export const findByFilter = (filter) => {
-  return Category.find(filter);
+//find slug
+export const findBySlug = (filter) => {
+  return Category.findOne(filter);
+};
+
+export const findCategoryByFilter = (filter) => {
+  return Category.findOne(filter);
 };
 
 export const findByFilterandGetSomething = (filter, getItem) => {
@@ -23,5 +28,5 @@ export const deleteCategoryQuery = (id) => {
 };
 
 export const updateCategoryQuery = (id, payload) => {
-  return Category.findByIdAndUpdate(id, payload);
+  return Category.findByIdAndUpdate(id, payload, { new: true });
 };

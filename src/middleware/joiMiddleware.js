@@ -41,31 +41,33 @@ export const createUserByAdminValidation = (req, res, next) => {
 };
 
 export const addProductValidation = (req, res, next) => {
-  //convert category string to category array if only 1 item was sent
-  let { category } = req.body;
-  if (!Array.isArray(category)) {
-    category = [category];
-  }
-
-  req.body.category = category;
   let addProductSchema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
     price: Joi.number().required(),
     stock: Joi.number().required(),
-    category: Joi.array().items(Joi.string().required()).min(1).required(),
+    category: Joi.string().required(),
+    subCategory: Joi.string().required(),
   });
 
   joiValidator(addProductSchema, req, res, next);
 };
 
 export const updateProductValidation = (req, res, next) => {
+  let { imagesToDelete } = req.body;
+  if (!Array.isArray(imagesToDelete)) {
+    imagesToDelete = imagesToDelete ? [imagesToDelete] : [];
+  }
+  req.body.imagesToDelete = imagesToDelete;
   let updateProductSchema = Joi.object({
     name: Joi.string(),
     description: Joi.string(),
     price: Joi.number(),
     stock: Joi.number(),
     category: Joi.string(),
+    subCategory: Joi.string(),
+    prevCategory: Joi.string(),
+    imagesToDelete: Joi.array().items(Joi.string()),
   });
 
   joiValidator(updateProductSchema, req, res, next);
