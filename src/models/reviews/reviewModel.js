@@ -3,10 +3,7 @@ import Review from "./reviewSchema.js";
 // ===== GET ALL REVIEWS =====
 export const getAllReviews = async () => {
   try {
-    const reviews = await Review.find()
-      .populate("productId", "name images") // show only product name
-      .populate("customerId", "name email") // show customer info
-      .sort({ createdAt: -1 }); // latest first
+    const reviews = await Review.find().sort({ createdAt: -1 }); // latest first
 
     return reviews;
   } catch (error) {
@@ -14,12 +11,20 @@ export const getAllReviews = async () => {
   }
 };
 
+export const getReviewsById = (id) => {
+  return Review.findById(id);
+};
+
+export const getReviewsByFilter = (filter) => {
+  return Review.find(filter);
+};
+
 // ===== UPDATE REVIEW STATUS =====
-export const updateReviewStatus = async (id, status) => {
+export const updateReviewStatus = async (id, filter) => {
   try {
     const updatedReview = await Review.findByIdAndUpdate(
       id,
-      { status },
+      filter,
       { new: true } // returns updated document
     );
 

@@ -7,13 +7,16 @@ export const addProduct = (productObj) => {
 export const getAllProductsQuery = () => {
   return Product.find();
 };
+export const getProductsByFilter = (filter) => {
+  return Product.find(filter);
+};
 
 export const getProductsById = (id) => {
   return Product.findById(id);
 };
 
 export const updateProductQuery = (id, updateObj) => {
-  return Product.findByIdAndUpdate(id, updateObj);
+  return Product.findByIdAndUpdate(id, updateObj, { new: true });
 };
 
 export const deleteProductQuery = (id) => {
