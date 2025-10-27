@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { mongooseConnect } from "./src/config/mongoConfig.js";
-// import { mongoConnect } from "./src/config/mongoConfig.js";
+import { mongooseConnect,mongoConnect } from "./src/config/mongoConfig.js";
+
 
 import config from "./src/config/config.js";
 import authRouter from "./src/routes/authRouter.js";
@@ -50,28 +50,28 @@ app.use("/api/v1/customer", customerRouter);
 // reviews router
 app.use("/api/v1/reviews", reviewRouter);
 
-// mongooseConnect()
-//   .then(() => mongoConnect())
-//   .then(() => {
-//     app.listen(config.port, (err) => {
-//       if (err) {
-//         console.log("SERVER COULD NOT START");
-//       } else {
-//         console.log("Server started at port", config.port);
-//       }
-//     });
-//   })
-//   .catch((err) => {
-//     console.log(err.message);
-//     console.log("MONGO DB CONNECTION ERROR");
-//   });
-
 mongooseConnect()
+  .then(() => mongoConnect())
   .then(() => {
-    app.listen(config.port, () => {
-      console.log(`✅ Server started on port ${config.port}`);
+    app.listen(config.port, (err) => {
+      if (err) {
+        console.log("SERVER COULD NOT START");
+      } else {
+        console.log("Server started at port", config.port);
+      }
     });
   })
   .catch((err) => {
-    console.error("❌ MONGO DB CONNECTION ERROR:", err.message);
+    console.log(err.message);
+    console.log("MONGO DB CONNECTION ERROR");
   });
+
+// mongooseConnect()
+//   .then(() => {
+//     app.listen(config.port, () => {
+//       console.log(`✅ Server started on port ${config.port}`);
+//     });
+//   })
+//   .catch((err) => {
+//     console.error("❌ MONGO DB CONNECTION ERROR:", err.message);
+//   });
