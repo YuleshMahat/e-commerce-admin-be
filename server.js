@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { mongooseConnect } from "./src/config/mongoConfig.js";
-import { mongoConnect } from "./src/config/mongoConfig.js";
+import { mongooseConnect,mongoConnect } from "./src/config/mongoConfig.js";
+
 
 import config from "./src/config/config.js";
 import authRouter from "./src/routes/authRouter.js";
@@ -16,16 +16,18 @@ import orderRouter from "./src/routes/orderRouter.js";
 
 import customerRouter from "./src/routes/customerRouter.js";
 
+import reviewRouter from "./src/routes/reviewRoutes.js";
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/public", express.static("assets/productImages"));
+
 app.get("/", (req, res) => {
   res.send("I am alive");
 });
-
-app.use("/public", express.static("assets/productImages"));
 
 // auth router
 app.use("/api/v1/auth", authRouter);
@@ -45,6 +47,9 @@ app.use("/api/v1/orders", orderRouter);
 //customer router
 app.use("/api/v1/customer", customerRouter);
 
+// reviews router
+app.use("/api/v1/reviews", reviewRouter);
+
 mongooseConnect()
   .then(() => mongoConnect())
   .then(() => {
@@ -60,3 +65,13 @@ mongooseConnect()
     console.log(err.message);
     console.log("MONGO DB CONNECTION ERROR");
   });
+
+// mongooseConnect()
+//   .then(() => {
+//     app.listen(config.port, () => {
+//       console.log(`✅ Server started on port ${config.port}`);
+//     });
+//   })
+//   .catch((err) => {
+//     console.error("❌ MONGO DB CONNECTION ERROR:", err.message);
+//   });
