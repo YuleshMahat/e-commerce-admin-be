@@ -7,6 +7,7 @@ import {
   getAllCategories,
 } from "../models/categories/categoryModel.js";
 import slugify from "slugify";
+import { singleUpload } from "../utils/cloudinaryUpload.js";
 
 export const fetchAllCategories = async (req, res, next) => {
   try {
@@ -36,7 +37,7 @@ export const fetchAllCategories = async (req, res, next) => {
 export const createCategory = async (req, res, next) => {
   try {
     let categoryObj = { ...req.body };
-    console.log(categoryObj);
+    const image = req.file;
     if (
       !categoryObj.parent ||
       categoryObj.parent === "null" ||
@@ -58,7 +59,13 @@ export const createCategory = async (req, res, next) => {
 
     categoryObj.slug = baseSlug;
 
-    let addCategory = await insertCategory({ ...categoryObj, products: [] });
+    const { secure_url } = await singleUpload(image);
+
+    let addCategory = await insertCategory({
+      ...categoryObj,
+      products: [],
+      image: secure_url,
+    });
 
     return res.status(200).json({
       status: "success",

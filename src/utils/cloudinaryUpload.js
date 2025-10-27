@@ -19,3 +19,18 @@ export const uploadImages = async (files) => {
     throw error;
   }
 };
+
+export const singleUpload = async (file) => {
+  try {
+    const result = cloudinary.uploader.upload(file.path, {
+      folder: "categories",
+      use_filename: true,
+      unique_filename: true,
+      overwrite: true,
+    });
+    return result;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+};
