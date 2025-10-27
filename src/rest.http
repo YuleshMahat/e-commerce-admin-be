@@ -1,0 +1,76 @@
+@apiURL = http://localhost:4000/api/v1
+
+###
+POST {{apiURL}}/auth
+Content-Type: application/json
+
+{
+  "username":"Prasika",
+
+  "email": "prasika@gmail.com", 
+  "password": "1234"
+
+}
+
+###
+POST {{apiURL}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "prasika@gmail.com", 
+  "password": "1234"
+}
+
+###
+POST {{apiURL}}/category
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3NTk3OTI2NTQsImV4cCI6MTc2MDM5NzQ1NH0.qHo-gUt8AxSUrRlz2T1i3woz4ckah-kMLkWyvwMzVYY
+
+{
+  "name":"Speakers"
+}
+
+###
+ GET {{apiURL}}/category
+Content-Type: application/json
+
+
+#####
+POST {{apiURL}}/products
+Content-Type: application/json
+
+{
+  "name": "Nokia Lumia",
+  "description": "Ancient Beast",
+  "price": 300,
+  "stock": 3,
+  "category": "68c8f01555ede480a0121d5e",
+  "images": ["https://msblogs.thesourcemediaassets.com/2013/08/5543.Lumia925Blk34Combo3ATT_5F00_LR_5F00_1CC4F241.jpg", "https://cdn.mos.cms.futurecdn.net/irLuBqtehijKJiyd8DWum8.jpg"],
+  "speacility": "Doesnt break at all"
+}
+
+
+#####
+GET {{apiURL}}/products
+
+
+
+#####
+#### Update product
+PATCH {{apiURL}}/products
+Content-Type: application/json
+
+{
+  "id": "68cfbe279b2684f7f1118e28", 
+  "description": "Phone is now discontinued."
+}
+
+
+#####
+#### Delete product
+DELETE {{apiURL}}/products
+Content-Type: application/json
+
+{
+  "id": "68cfbe279b2684f7f1118e28"
+}

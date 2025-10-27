@@ -59,12 +59,12 @@ export const createCategory = async (req, res, next) => {
 
     categoryObj.slug = baseSlug;
 
-    const { secure_url } = await singleUpload(image);
+    // const { secure_url } = await singleUpload(image);
 
     let addCategory = await insertCategory({
       ...categoryObj,
       products: [],
-      image: secure_url,
+      // image: secure_url,
     });
 
     return res.status(200).json({
