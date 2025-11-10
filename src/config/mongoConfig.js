@@ -30,3 +30,16 @@ export const getDB = () => {
 export const mongooseConnect = () => {
   return mongoose.connect(config.mongoOptions.url);
 };
+
+// export const mongooseConnect = async () => {
+//   try {
+//     await mongoose.connect(config.mongoOptions.url);
+//     console.log(
+//       "✅ Connected to MongoDB via Mongoose:",
+//       mongoose.connection.name
+//     );
+//   } catch (err) {
+//     console.error("❌ MongoDB connection error:", err);
+//     throw err;
+//   }
+// };
