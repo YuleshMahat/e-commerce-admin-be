@@ -25,10 +25,10 @@ const orderSchema = new mongoose.Schema(
   {
     customerId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "customer",
+      ref: "Customer",
       required: true,
     },
-    items: [orderItemSchema], // <-- array of items
+    items: [orderItemSchema],
     total: {
       type: Number,
       required: true,
@@ -44,8 +44,8 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Order received", "Shipped", "Delivered"],
-      default: "Order received",
+      enum: ["Order Received", "Shipped", "Delivered"],
+      default: "Order Received",
     },
     orderedDate: {
       type: Date,
