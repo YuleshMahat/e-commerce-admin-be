@@ -4,9 +4,9 @@ const joiValidator = (schema, req, res, next) => {
   const { error } = schema.validate(req.body);
   error
     ? res.status(404).json({
-        status: "error",
-        message: error.message,
-      })
+      status: "error",
+      message: error.message,
+    })
     : next();
 };
 
@@ -45,6 +45,7 @@ export const addProductValidation = (req, res, next) => {
     name: Joi.string().required(),
     description: Joi.string().required(),
     price: Joi.number().required(),
+    comparePrice: Joi.number(),
     stock: Joi.number().required(),
     category: Joi.string().required(),
     subCategory: Joi.string().required(),
@@ -62,7 +63,8 @@ export const updateProductValidation = (req, res, next) => {
   let updateProductSchema = Joi.object({
     name: Joi.string(),
     description: Joi.string(),
-    price: Joi.number(),
+    price: Joi.number().required(),
+    comparePrice: Joi.number(),
     stock: Joi.number(),
     category: Joi.string(),
     subCategory: Joi.string(),
