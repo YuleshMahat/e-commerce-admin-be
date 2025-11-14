@@ -25,6 +25,7 @@ export const getAllProducts = async (req, res) => {
 export const addNewProduct = async (req, res) => {
   const { category, subCategory, ...payload } = req.body;
   const imageFiles = req.files;
+  const productImages = imageFiles.map((i) => i.path);
   const slug = slugifyItem(payload.name);
   const categoryId = await findCategoryByFilter({ name: category });
   const subCategoryId = await findCategoryByFilter({ name: subCategory });
@@ -35,9 +36,7 @@ export const addNewProduct = async (req, res) => {
     subCategory: subCategoryId._id,
   };
   try {
-    const cloudinaryResult = await uploadImages(imageFiles);
-    const images = cloudinaryResult.map((res) => res.secure_url);
-    productObj["images"] = images;
+    productObj["images"] = productImages;
     const product = await addProduct(productObj);
 
     //add the product to the category collection as well.
